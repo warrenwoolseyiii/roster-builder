@@ -20,9 +20,9 @@ A Python CLI tool that generates per-game roster CSV files for a season. Given a
 
 ```bash
 python scripts/generate_rosters.py \
-  --players=player-lists/collegiate_2026.csv \
+  --players=player-lists/example_player_list.csv \
   --positions=positions/collegiate_positions_2026.csv \
-  --games=10 \
+  --games=5 \
   --sport=baseball
 ```
 
@@ -45,15 +45,23 @@ Roster CSV files are written to the output directory with the naming convention:
 {player_file_stem}_game_{N}_roster.csv
 ```
 
-For example: `collegiate_2026_game_1_roster.csv`
+For example: `example_player_list_game_1_roster.csv`
 
-Each roster CSV contains:
+Each roster CSV is sorted by batting order and contains:
 
 ```csv
 Position,Player,Batting Order,Game Ball
-catcher,Weston Horton,1,
-pitcher,Bixby Steil,2,Yes
-...
+pitcher,Skyler Kim,1,
+Left Center Field,Riley Okafor,2,Yes
+Center Field,Drew Patel,3,
+3rd Base,Reese Dubois,4,Yes
+catcher,Taylor Nakamura,5,Yes
+2nd Base,Avery Johansson,6,Yes
+Right Field,Morgan Chen,7,Yes
+Left Field,Quinn Vasquez,8,Yes
+Shortstop,Jordan Rivera,9,Yes
+1st Base,Alex Thompson,10,
+Right Center Field,Casey Mitchell,11,
 Designated Hitter,,12,
 ```
 
@@ -63,8 +71,17 @@ Designated Hitter,,12,
 
 ```csv
 First Name,Last Name
-Weston,Horton
-Bixby,Steil
+Alex,Thompson
+Jordan,Rivera
+Casey,Mitchell
+Morgan,Chen
+Taylor,Nakamura
+Riley,Okafor
+Quinn,Vasquez
+Avery,Johansson
+Drew,Patel
+Skyler,Kim
+Reese,Dubois
 ```
 
 ### Positions CSV
@@ -74,6 +91,14 @@ position
 catcher
 pitcher
 1st Base
+2nd Base
+Shortstop
+3rd Base
+Left Field
+Center Field
+Right Field
+Left Center Field
+Right Center Field
 ```
 
 ## Sport Configuration
@@ -90,6 +115,9 @@ position_groups:
     positions:                       # positions in this group
       - Left Field
       - Center Field
+      - Right Field
+      - Left Center Field
+      - Right Center Field
     constraints:
       - type: no_repeat_group        # constraint type
         cooldown: 1                  # games before player can return
@@ -174,8 +202,10 @@ roster-builder/
 │   └── io.py                    # CSV read/write utilities
 ├── sports/
 │   └── baseball.yaml            # Baseball sport config
-├── player-lists/                # Input player CSVs
-├── positions/                   # Input position CSVs
+├── player-lists/
+│   └── example_player_list.csv  # Example player list (fake names)
+├── positions/
+│   └── collegiate_positions_2026.csv
 ├── rosters/                     # Generated roster output
 ├── plans/                       # Architecture docs
 └── README.md
