@@ -1,0 +1,36 @@
+sport: baseball
+
+# Position groups for rotation constraints
+position_groups:
+  outfield:
+    positions:
+      - Left Field
+      - Center Field
+      - Right Field
+      - Left Center Field
+      - Right Center Field
+    constraints:
+      - type: no_repeat_group
+        cooldown: 1  # number of games before a player can return to this group
+
+# Special slots that appear in roster but are not field positions
+special_slots:
+  - name: Designated Hitter
+    has_player: false
+
+# Ordering system (batting order for baseball)
+ordering:
+  name: Batting Order
+  total_slots: 12
+  halves:
+    top: [1, 6]      # inclusive range
+    bottom: [7, 12]   # inclusive range
+  constraints:
+    - type: no_repeat_half
+      cooldown: 1  # a player cannot be in the same half back-to-back
+
+# Game ball distribution rules
+game_ball:
+  enabled: true
+  min_per_game: 1
+  rule: all_players_receive_at_least_one
